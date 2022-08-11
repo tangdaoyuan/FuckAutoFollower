@@ -1,0 +1,18 @@
+{
+  "name": "FuckAutoFollower",
+  "packageManager": "pnpm@7.5.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "fuck auto follow"
+  ],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "@octokit/core": "^4.0.4"
+  }
+}
