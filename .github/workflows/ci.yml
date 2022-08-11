@@ -31,6 +31,6 @@ jobs:
           API_TOKEN: ${{ secrets.API_TOKEN }}
 
       - name: Commit
-        run: |
-          git add .
-          git commit -m 'chore: schedule update'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'chore: schedule update'

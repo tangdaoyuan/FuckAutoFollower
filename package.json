@@ -1,8 +1,12 @@
 {
-  "name": "FuckAutoFollower",
+  "name": "fuck-auto-follower",
   "packageManager": "pnpm@7.5.0",
   "version": "1.0.0",
-  "description": "",
+  "description": "Try to list all github auto follower bot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tangdaoyuan/FuckAutoFollower.git"
+  },
   "main": "index.js",
   "keywords": [
     "fuck auto follow"
