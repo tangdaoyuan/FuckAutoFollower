@@ -10,7 +10,7 @@ function isRobot(user) {
 
 async function getRobots(isRobot) {
   const octokit = new Octokit({
-    auth: "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",
+    auth: process.env.API_TOKEN,
   });
 
   const followers = []
