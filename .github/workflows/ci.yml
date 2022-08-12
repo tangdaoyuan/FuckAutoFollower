@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron:  '* 12,22 * * *'
+    - cron: "0 4,14 * * *"
 
 jobs:
   Work:
@@ -35,4 +35,4 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'chore: schedule update'
+          commit_message: "chore: schedule update"
