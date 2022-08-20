@@ -27,8 +27,10 @@ async function getRobots(isRobot) {
       console.error('Error:', resp.status);
     } else {
       users = resp.data.map(d =>
-        d.login
-      )
+      ({
+        login: d.login,
+        id: d.id,
+      }))
     }
 
     followers.push(...users)
@@ -38,25 +40,55 @@ async function getRobots(isRobot) {
     }
   }
 
+  const followerNames = followers.map(f => f.login)
+
+  // Record ids
+  try {
+    const filename = 'follower_ids.json'
+    const followerWithIds = JSON.parse(await fs.readFile(filename))
+
+    followers.forEach(follower => {
+      if (!followerWithIds[follower.id]) {
+        followerWithIds[follower.id] = follower
+      }
+    })
+
+    await fs.writeFile(filename, JSON.stringify(followerWithIds))
+  } catch (error) {
+    console.log(error)
+  }
+  // TODO
+  // const resp = await octokit.request('GET /user/{id}', {
+  //   id: 'USER_ID',
+  // })
+
   try {
     const filename = 'followers.json'
     const historyFollowers = JSON.parse(await fs.readFile(filename))
-    await fs.writeFile(filename, JSON.stringify(followers))
+    await fs.writeFile(filename, JSON.stringify(followerNames))
 
-    const sets = new Set(followers)
+    const sets = new Set(followerNames)
     const unFollowers = historyFollowers.filter(f => !sets.has(f))
 
     const p = unFollowers
       .map(async (f) => {
-        const resp = await octokit.request('GET /users/{username}', {
-          username: f,
-        })
-        if (resp.status !== 200)
-          return null
+        try {
+          const resp = await octokit.request('GET /users/{username}', {
+            username: f,
+          })
+          if (resp.status !== 200)
+            return null
 
-        const { data } = resp
-        if (isRobot(data))
-          return data.login
+          console.log(resp)
+          const { data } = resp
+          if (isRobot(data))
+            return data.login
+        } catch (error) {
+          if (error?.response?.status === 404) {
+            console.log(`【${f}】Username Changed`)
+            return f
+          }
+        }
 
         return null
       })
