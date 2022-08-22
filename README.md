@@ -6,5 +6,5 @@ Try to list all github auto follower bot
 - [kerolloz](https://github.com/kerolloz)
 
 ## TODO
-- [ ] Resolve intentional renaming
+- [ ] update `robots.json` by `robots_ids` regularly
 - [ ] Auto Block or Report Robots

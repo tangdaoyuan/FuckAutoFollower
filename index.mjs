@@ -124,11 +124,23 @@ async function getRobots(isRobot) {
 
 async function updateRobotRecords(robots) {
   try {
-    const _robots = robots.map(r => r.login)
-    const content = await fs.readFile('robots.json')
+    const nameFile = 'robots.json'
+    const idFile = 'robots_ids.json'
+    const content = await fs.readFile(nameFile)
     const data = JSON.parse(content)
-    const allRobots = Array.from(new Set([...data, ..._robots]))
-    await fs.writeFile('robots.json', JSON.stringify(allRobots))
+    const allRobots = Array.from(new Set([...data, ...robots.map(r => r.login)]))
+    await fs.writeFile(nameFile, JSON.stringify(allRobots))
+
+    const historyIds = JSON.parse(await fs.readFile(idFile))
+    await fs.writeFile(
+      idFile,
+      JSON.stringify(
+        Array.from(new Set([
+          ...historyIds,
+          ...robots.map(r => r.id)
+        ]))
+      )
+    )
     return allRobots
   } catch (error) {
     console.error(error)
