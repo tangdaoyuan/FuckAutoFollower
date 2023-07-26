@@ -9,6 +9,7 @@ Try to list all github auto follower bot
 - [peter-kimanzi](https://github.com/peter-kimanzi)
 - [isyuricunha](https://github.com/isyuricunha)
 - [dexjr](https://github.com/dexjr)
+- [CharlesDerek](https://github.com/CharlesDerek)
 
 ## TODO
 - [ ] update `robots.json` by `robots_ids` regularly
